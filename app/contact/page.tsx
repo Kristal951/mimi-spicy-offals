@@ -109,7 +109,6 @@ const ContactPage = () => {
             </div>
           </div>
 
-          {/* Right Column: Interactive Form Panel */}
           <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl border border-neutral-100 shadow-sm">
             {submitted ? (
               <div className="text-center py-16">
@@ -139,7 +138,7 @@ const ContactPage = () => {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="e.g. Chidi Oke"
+                      placeholder="e.g. John Doe"
                       className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm text-[#140806] placeholder-neutral-400 focus:outline-none focus:border-accent transition-all"
                     />
                   </div>
