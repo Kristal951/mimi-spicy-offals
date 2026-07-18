@@ -112,7 +112,11 @@ const Footer = () => {
                 <a
                   key={label}
                   href={
-                    label === "Whatsaap" ? "https://wa.me/2349085181295" : ""
+                    label === "Whatsaap"
+                      ? "https://wa.me/2349085181295"
+                      : label === "Gmail"
+                        ? "mailto:Mchidimma439@gmail.com"
+                        : ""
                   }
                   aria-label={label}
                   className="p-2.5 rounded-xl bg-secondary/15 text-muted-foreground hover:bg-accent hover:text-white hover:-translate-y-0.5 transition-all duration-300"
@@ -168,10 +172,10 @@ const Footer = () => {
               <li className="flex items-center gap-2.5">
                 <Mail size={16} className="text-accent shrink-0" />
                 <a
-                  href="mailto:hello@lovemeals.com"
+                  href="mailto:Mchidimma439@gmail.com"
                   className="hover:text-accent transition-colors"
                 >
-                  hello@lovemeals.com
+                  Mchidimma439@gmail.com
                 </a>
               </li>
             </ul>

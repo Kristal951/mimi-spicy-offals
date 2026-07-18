@@ -3,7 +3,10 @@ import { ArrowRight, Flame } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section id="hero" className="relative flex w-full items-center overflow-hidden h-screen bg-[#140806]">
+    <section
+      id="hero"
+      className="relative flex w-full items-center overflow-hidden h-screen bg-[#140806]"
+    >
       <img
         src="/assets/kpoms.png"
         alt="Delicious Peppered Kpomo"
@@ -30,8 +33,10 @@ const HeroSection = () => {
         </h1>
 
         <p className="text-base sm:text-lg text-neutral-300/90 leading-relaxed mb-10 max-w-lg font-light">
-          We don’t do boring food. Experience high-intensity, deeply savory local 
-          delicacies slow-simmered in our signature pepper blends for a true flavor explosion.
+          Mimi Spicy Offals is your go-to brand for boldly seasoned,
+          hygienically prepared and premium packaged Meals. We don't just sell
+          food - we deliver an experience that's spicy, satisfying and
+          unforgettable. Because you deserve more than just a meal.
         </p>
 
         <div className="flex flex-wrap items-center gap-5 sm:gap-6 w-full sm:w-auto">
@@ -41,13 +46,16 @@ const HeroSection = () => {
           >
             Explore Menu
           </a>
-          
+
           <a
             href="#story"
             className="group w-full sm:w-auto flex items-center justify-center gap-2 font-bold text-sm text-white hover:text-[#E05A36] transition-colors duration-200 py-3"
           >
             Our Story
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+            <ArrowRight
+              size={16}
+              className="group-hover:translate-x-1 transition-transform duration-300"
+            />
           </a>
         </div>
       </div>
@@ -60,7 +68,6 @@ const HeroSection = () => {
           <div className="w-1.5 h-2.5 bg-[#E05A36] rounded-full animate-bounce" />
         </div>
       </div>
-
     </section>
   );
 };

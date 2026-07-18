@@ -8,37 +8,82 @@ const ContactPage = () => {
     name: "",
     email: "",
     phone: "",
-    subject: "Order Inquiry",
+    subjectData: "Order Inquiry", // State key is subjectData
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    setTimeout(() => {
+    setErrorMessage("");
+
+    const { subjectData, ...restFormData } = formData;
+
+    const submissionData = {
+      access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+      from_name: "Mimi Spicy Offals Website",
+      subject: `New Web Inquiry: ${subjectData}`,
+      ...restFormData,
+    };
+
+    try {
+        console.log(submissionData)
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subjectData: "Order Inquiry",
+          message: "",
+        });
+      } else {
+        setErrorMessage(
+          result.message || "Something went wrong. Please try again."
+        );
+      }
+    } catch (error) {
+      setErrorMessage(
+        "Network error. Please check your internet connection and try again."
+      );
+      console.error("Web3Forms error details:", error);
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: "", email: "", phone: "", subject: "Order Inquiry", message: "" });
-    }, 1500);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <main className="w-full min-h-screen bg-background pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
           <h1 className="text-4xl md:text-5xl font-serif font-medium text-foreground mb-4">
             Get in <span className="text-accent">Touch</span>
           </h1>
           <p className="text-neutral-600 font-light text-sm md:text-base">
-            Have questions about catering, bulk orders, or spice levels? Drop us a line and the Mimi Spicy team will get back to you promptly.
+            Have questions about catering, bulk orders, or spice levels? Drop us
+            a line and the Mimi Spicy team will get back to you promptly.
           </p>
         </div>
 
@@ -49,16 +94,21 @@ const ContactPage = () => {
                 <MessageSquare size={20} className="text-accent" />
                 Contact Info
               </h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-neutral-50 rounded-xl border border-border text-accent shrink-0">
                     <Phone size={18} />
                   </div>
                   <div>
-                    <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-0.5">Call / WhatsApp</p>
-                    <a href="tel:+2348031234567" className="text-sm font-semibold text-[#140806] hover:text-accent transition-colors">
-                      +234 (0) 803 123 4567
+                    <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-0.5">
+                      Call / WhatsApp
+                    </p>
+                    <a
+                      href="tel:+2349085181295"
+                      className="text-sm font-semibold text-[#140806] hover:text-accent transition-colors"
+                    >
+                      +234 (0) 908 518 1295
                     </a>
                   </div>
                 </div>
@@ -68,9 +118,14 @@ const ContactPage = () => {
                     <Mail size={18} />
                   </div>
                   <div>
-                    <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-0.5">Email Support</p>
-                    <a href="mailto:orders@mimispicyoffals.com" className="text-sm font-semibold text-[#140806] hover:text-accent transition-colors">
-                      orders@mimispicyoffals.com
+                    <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-0.5">
+                      Email Support
+                    </p>
+                    <a
+                      href="mailto:orders@mimispicyoffals.com"
+                      className="text-sm font-semibold text-[#140806] hover:text-accent transition-colors"
+                    >
+                      Mchidimma439@gmail.com
                     </a>
                   </div>
                 </div>
@@ -80,10 +135,14 @@ const ContactPage = () => {
                     <Bike size={18} />
                   </div>
                   <div>
-                    <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-0.5">Fulfillment</p>
+                    <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-0.5">
+                      Fulfillment
+                    </p>
                     <p className="text-sm font-medium text-neutral-600 leading-relaxed">
-                      <strong>Delivery-Only Model</strong><br />
-                      Dispatching out of Abuja.<br />
+                      <strong>Delivery-Only Model</strong>
+                      <br />
+                      Dispatching out of Abuja.
+                      <br />
                       Serving all across Nigeria.
                     </p>
                   </div>
@@ -98,26 +157,44 @@ const ContactPage = () => {
               </h2>
               <div className="space-y-3 pt-2">
                 <div className="flex justify-between text-sm border-b border-neutral-100 pb-2">
-                  <span className="text-neutral-500 font-light">Monday - Friday</span>
-                  <span className="font-semibold text-[#140806]">11:00 AM - 9:00 PM</span>
+                  <span className="text-neutral-500 font-light">
+                    Monday - Friday
+                  </span>
+                  <span className="font-semibold text-[#140806]">
+                    11:00 AM - 9:00 PM
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm border-b border-neutral-100 pb-2">
-                  <span className="text-neutral-500 font-light">Saturday - Sunday</span>
-                  <span className="font-semibold text-[#140806]">12:00 PM - 10:00 PM</span>
+                  <span className="text-neutral-500 font-light">
+                    Saturday - Sunday
+                  </span>
+                  <span className="font-semibold text-[#140806]">
+                    12:00 PM - 10:00 PM
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl border border-neutral-100 shadow-sm">
+            {/* Error Message display block */}
+            {errorMessage && (
+              <div className="mb-4 p-4 text-sm text-red-700 bg-red-50 rounded-xl border border-red-100">
+                {errorMessage}
+              </div>
+            )}
+
             {submitted ? (
               <div className="text-center py-16">
                 <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-100">
                   <Send size={24} />
                 </div>
-                <h3 className="font-serif text-2xl font-medium text-[#140806] mb-2">Message Sent Successfully!</h3>
+                <h3 className="font-serif text-2xl font-medium text-[#140806] mb-2">
+                  Message Sent Successfully!
+                </h3>
                 <p className="text-sm text-neutral-500 max-w-sm mx-auto mb-6">
-                  Thank you for reaching out. A spice manager will review your submission and reply within a couple of hours.
+                  Thank you for reaching out. A spice manager will review your
+                  submission and reply within a couple of hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -130,7 +207,12 @@ const ContactPage = () => {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="name" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">Your Name</label>
+                    <label
+                      htmlFor="name"
+                      className="text-xs font-bold text-neutral-600 uppercase tracking-wider"
+                    >
+                      Your Name
+                    </label>
                     <input
                       type="text"
                       id="name"
@@ -143,7 +225,12 @@ const ContactPage = () => {
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="phone" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">Phone Number</label>
+                    <label
+                      htmlFor="phone"
+                      className="text-xs font-bold text-neutral-600 uppercase tracking-wider"
+                    >
+                      Phone Number
+                    </label>
                     <input
                       type="tel"
                       id="phone"
@@ -158,7 +245,12 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">Email Address</label>
+                  <label
+                    htmlFor="email"
+                    className="text-xs font-bold text-neutral-600 uppercase tracking-wider"
+                  >
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -172,15 +264,22 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="subject" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">Inquiry Subject</label>
+                  <label
+                    htmlFor="subjectData"
+                    className="text-xs font-bold text-neutral-600 uppercase tracking-wider"
+                  >
+                    Inquiry Subject
+                  </label>
                   <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
+                    id="subjectData"
+                    name="subjectData" /* FIXED: changed from name="subject" to line up with state */
+                    value={formData.subjectData}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm text-[#140806] bg-white focus:outline-none focus:border-accent transition-all"
                   >
-                    <option value="Order Inquiry">Order & Delivery Inquiry</option>
+                    <option value="Order Inquiry">
+                      Order & Delivery Inquiry
+                    </option>
                     <option value="Catering">Event Catering Packages</option>
                     <option value="Feedback">Spice Level Feedback</option>
                     <option value="Other">Other Issues</option>
@@ -188,7 +287,12 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="message" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">Message Details</label>
+                  <label
+                    htmlFor="message"
+                    className="text-xs font-bold text-neutral-600 uppercase tracking-wider"
+                  >
+                    Message Details
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -206,12 +310,11 @@ const ContactPage = () => {
                   disabled={isSubmitting}
                   className="w-full mt-2 cursor-pointer flex items-center justify-center gap-2 py-3.5 rounded-xl bg-accent text-white font-semibold text-xs uppercase tracking-wider transition-all duration-200 hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? "Sending Details..." : "Submit Message"}
+                  {isSubmitting ? "Submitting..." : "Submit Message"}
                 </button>
               </form>
             )}
           </div>
-
         </div>
       </div>
     </main>
