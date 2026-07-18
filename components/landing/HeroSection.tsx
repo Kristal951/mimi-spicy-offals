@@ -3,7 +3,7 @@ import { ArrowRight, Flame } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex w-full items-center overflow-hidden h-screen bg-[#140806]">
+    <section id="hero" className="relative flex w-full items-center overflow-hidden h-screen bg-[#140806]">
       <img
         src="/assets/kpoms.png"
         alt="Delicious Peppered Kpomo"

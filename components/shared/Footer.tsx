@@ -90,7 +90,6 @@ const Footer = () => {
     <footer className="w-full">
       <div className="max-w-7xl mx-auto px-6 py-10 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          
           <div className="lg:col-span-2 flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <Image
@@ -107,12 +106,14 @@ const Footer = () => {
               ingredients. Delivering fresh culinary joy straight to your
               kitchen table.
             </p>
-            
+
             <div className="flex gap-4 mt-2">
               {SOCIAL_ICONS.map(({ icon: Icon, label }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={
+                    label === "Whatsaap" ? "https://wa.me/2349085181295" : ""
+                  }
                   aria-label={label}
                   className="p-2.5 rounded-xl bg-secondary/15 text-muted-foreground hover:bg-accent hover:text-white hover:-translate-y-0.5 transition-all duration-300"
                 >
@@ -127,18 +128,22 @@ const Footer = () => {
               Explore
             </h4>
             <ul className="flex flex-col gap-2.5 text-sm">
-              {["Our Menu", "Features", "What They Say", "Active Offers"].map(
-                (link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-muted-foreground hover:text-accent transition-colors duration-200"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ),
-              )}
+              {["Our Menu", "Features", "What They Say"].map((link) => (
+                <li key={link}>
+                  <a
+                    href={
+                      link === "Our Menu"
+                        ? "/menu"
+                        : link === "Features"
+                          ? "#features"
+                          : "#reviews"
+                    }
+                    className="text-muted-foreground hover:text-accent transition-colors duration-200"
+                  >
+                    {link}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -149,7 +154,7 @@ const Footer = () => {
             <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
               <li className="flex items-center gap-2.5">
                 <MapPin size={16} className="text-accent shrink-0" />
-                <span>123 Culinary Court, Foodie City</span>
+                <span>Abuja, Nigeria.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={16} className="text-accent shrink-0" />
@@ -157,7 +162,7 @@ const Footer = () => {
                   href="tel:+1555123456"
                   className="hover:text-accent transition-colors"
                 >
-                  (555) 123-4567
+                  +234 908 518 1295
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
@@ -171,7 +176,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
         </div>
       </div>
     </footer>

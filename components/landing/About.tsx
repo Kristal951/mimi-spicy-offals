@@ -4,7 +4,7 @@ import { UtensilsCrossed, Leaf, Play, Award, ArrowRight } from "lucide-react";
 
 const AboutSection = () => {
   return (
-    <section className="w-full bg-background py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+    <section id="about" className="w-full bg-background py-16 md:py-24 px-6 md:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center">
         <div className="lg:col-span-6 relative w-full max-w-lg lg:max-w-xl mx-auto aspect-4/4 sm:aspect-4/3.5 lg:aspect-square">
           <div className="absolute top-0 left-0 w-[68%] aspect-4/3 rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg shadow-black/5 group cursor-pointer z-10">

@@ -1,9 +1,9 @@
-import AboutSection from "@/components/About";
-import Features from "@/components/Features";
-import Footer from "@/components/Footer";
-import HeroSection from "@/components/HeroSection";
-import PopularMeals from "@/components/PopularMeals";
-import WhatOurCustomersSay from "@/components/WhatOurCustomersSay";
+import AboutSection from "@/components/landing/About";
+import Features from "@/components/landing/Features";
+import Footer from "@/components/shared/Footer";
+import HeroSection from "@/components/landing/HeroSection";
+import PopularMeals from "@/components/landing/PopularMeals";
+import WhatOurCustomersSay from "@/components/landing/WhatOurCustomersSay";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 
@@ -15,7 +15,6 @@ const Page = () => {
       <PopularMeals/>
       <AboutSection/>
       <WhatOurCustomersSay/>
-      <Footer/>
     </div>
   );
 };

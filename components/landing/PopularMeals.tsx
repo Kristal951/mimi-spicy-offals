@@ -1,11 +1,26 @@
 import React from "react";
 import { ShoppingBag, Flame } from "lucide-react";
+import Link from "next/link";
 
 interface Meal {
   id: string;
   title: string;
   price: string;
   image: string;
+}
+
+const WHATSAPP_NUMBER = "2349085181295";
+
+export function getWhatsAppOrderLink(productName: string) {
+  const message = `Hello Mimi Spicy Offals! 👋
+
+I would like to order *${productName}*.
+
+Please let me know the availability and the total cost.
+
+Thank you!`;
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 const MEALS: Meal[] = [
@@ -49,7 +64,7 @@ const MEALS: Meal[] = [
 
 const PopularMeals = () => {
   return (
-    <section className="w-full py-24 px-4 md:px-6 relative overflow-hidden warm-glow-gradient">
+    <section id="popularMeals" className="w-full py-24 px-4 md:px-6 relative overflow-hidden warm-glow-gradient">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col items-center justify-center text-center mb-16">
           <span className="text-sm font-semibold tracking-wider text-accent uppercase flex items-center gap-1.5 mb-2">
@@ -89,13 +104,16 @@ const PopularMeals = () => {
                     {meal.price}
                   </span>
 
-                  <button
+                  <Link
+                    href={getWhatsAppOrderLink(meal.title)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={`Order ${meal.title} now`}
                     className="bg-accent backdrop-blur-md cursor-pointer text-white px-5 py-2.5 rounded-full font-poppins text-xs font-semibold flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300 transform group-hover:scale-105 active:scale-95 shrink-0"
                   >
                     <ShoppingBag size={14} className="fill-current" />
                     <span>Order Now</span>
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

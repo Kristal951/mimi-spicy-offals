@@ -37,7 +37,7 @@ const FEATURES: Feature[] = [
 
 const Features = () => {
   return (
-    <section className="w-full py-5 px-6 md:px-12 bg-background">
+    <section id="features" className="w-full py-5 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {FEATURES.map(({ icon: Icon, title, description, colorClass }) => (

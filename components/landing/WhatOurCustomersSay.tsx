@@ -13,13 +13,13 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     id: "1",
-    name: "Chioma Nwachukwu",
-    handle: "@chi_eats_local",
-    rating: 5,
+    name: "Bethel Wisdom",
+    handle: "kristaldev001@gmail.com",
+    rating: 4,
     comment:
       "The Peppered Kpomo is exactly how it should be—spicy, tender, and incredibly flavorful! It arrived piping hot and tasted like a proper home-cooked delicacy.",
     avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
+      "https://res.cloudinary.com/dgvk232bh/image/upload/v1784382682/Black_logo_owy6mh.png",
   },
   {
     id: "2",
@@ -45,7 +45,7 @@ const TESTIMONIALS: Testimonial[] = [
 
 const WhatOurCustomersSay = () => {
   return (
-    <section className="w-full px-6 md:px-12 py-24 warm-glow-gradient">
+    <section id="reviews" className="w-full px-6 md:px-12 py-24 warm-glow-gradient">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <div className="w-full flex flex-col gap-3 items-center justify-center">

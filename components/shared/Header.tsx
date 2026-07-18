@@ -8,10 +8,7 @@ import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Menu", href: "/search" },
-  { label: "About us", href: "/about_us" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Reviews", href: "/reviews" },
+  { label: "Menu", href: "/menu" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -20,7 +17,11 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll detection
+  const isHome = pathname === "/";
+  const isInMenuPage = pathname === "/menu";
+
+  console.log(pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -65,8 +66,8 @@ const Header = () => {
                   active
                     ? "text-[#E05A36]"
                     : isScrolled
-                    ? "text-neutral-700 hover:text-[#E05A36]"
-                    : "text-white/90 hover:text-[#E05A36]"
+                      ? `${isHome ? "text-foreground" : "text-neutral-700"} hover:text-[#E05A36]`
+                      : `${isHome ? "text-white/90" : "text-foreground"} hover:text-[#E05A36]`
                 }`}
               >
                 {link.label}
@@ -76,16 +77,18 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/"
-            className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${
-              isScrolled
-                ? "bg-[#E05A36] text-white hover:bg-[#c74a2b]"
-                : "bg-white text-[#0F1115] hover:bg-white/90 shadow-md"
-            }`}
-          >
-            Order Now
-          </Link>
+          {!isInMenuPage && (
+            <Link
+              href="/"
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                isScrolled
+                  ? `bg-accent text-white hover:bg-[#c74a2b]`
+                  : `${isHome ? "bg-white" : "bg-accent"} text-[#0F1115] hover:bg-white/90 shadow-md`
+              }`}
+            >
+              Order Now
+            </Link>
+          )}
         </div>
 
         <button
@@ -93,7 +96,7 @@ const Header = () => {
           className={`md:hidden p-2 rounded-xl transition-colors ${
             isScrolled
               ? "text-neutral-800 hover:bg-neutral-100"
-              : "text-white hover:bg-white/10"
+              : `${isHome ? 'text-white' : 'text-foreground' } hover:bg-white/10`
           }`}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
@@ -121,15 +124,17 @@ const Header = () => {
             );
           })}
 
-          <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-neutral-100">
-            <Link
-              href="/"
-              onClick={() => setMobileOpen(false)}
-              className="w-full text-center py-3 bg-[#E05A36] text-white font-semibold text-sm rounded-full hover:bg-[#c74a2b] transition-colors"
-            >
-              Order Now
-            </Link>
-          </div>
+          {!isInMenuPage && (
+            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-neutral-100">
+              <Link
+                href="/"
+                onClick={() => setMobileOpen(false)}
+                className="w-full text-center py-3 bg-[#E05A36] text-white font-semibold text-sm rounded-full hover:bg-[#c74a2b] transition-colors"
+              >
+                Order Now
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </header>
